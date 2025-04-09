@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Prisma schema for Studymate application
 
 generator client {
   provider = "prisma-client-js"
@@ -10,25 +6,16 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // for local development
-  url      = env("DATABASE_URL")
-  // for Vercel
-  // url       = env("POSTGRES_PRISMA_URL")
-  // directUrl = env("POSTGRES_URL_NON_POOLING")
+  url      = env("DATABASE_URL") // Ensure the environment variable for the database URL is set
 }
 
+// Enum for user roles: 'USER' or 'ADMIN'
 enum Role {
   USER
   ADMIN
 }
 
-model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
-  role     Role   @default(USER)
-}
-
+// Enum for the condition of the study session topic or activity
 enum Condition {
   excellent
   good
@@ -36,10 +23,69 @@ enum Condition {
   poor
 }
 
-model Stuff {
-  id        Int       @id @default(autoincrement())
+// Enum for study session status
+enum SessionStatus {
+  PENDING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+// User model representing each ICS student
+model User {
+  id            Int           @id @default(autoincrement()) // Automatically increments for new users
+  email         String        @unique // Unique email for each user
+  password      String        // Password for authentication
+  role          Role          @default(USER) // Role for the user, either USER or ADMIN
+  name          String?        // Full name of the user
+  profilePicture String?      // Optional field to store URL or file path to profile image
+  courses       Course[]      // Many-to-many relationship with Course
+  points        Int           @default(0) // Points accumulated by the user for participation
+  pointHistory  PointHistory[] // User's points history
+  
+  createdAt     DateTime      @default(now()) // Automatically set when the user is created
+  updatedAt     DateTime      @updatedAt // Automatically updates whenever the user is modified
+  
+  // Added reverse relation for StudySession
+  studySessionsOwned StudySession[] @relation("OwnedSessions")
+  
+  // Added reverse relation for attending sessions
+  attendingSessions StudySession[] @relation("SessionAttendees")
+}
+
+// Model for courses available in the system
+model Course {
+  id        Int             @id @default(autoincrement())
+  code      String
   name      String
-  quantity  Int
-  condition Condition @default(good)
-  owner     String
+  users     User[]          // Many-to-many relationship with users
+  studySessions StudySession[] // ✅ Sessions related to this course
+}
+
+// Model to represent study sessions that users can host or attend
+model StudySession {
+  id          Int           @id @default(autoincrement()) // Automatically increments for new sessions
+  topic       String        // The topic or subject of the study session
+  description String?       // Optional description of the session
+  ownerId     Int           // User ID of the person who is hosting the session (Sensei)
+  owner       User          @relation(fields: [ownerId], references: [id], name: "OwnedSessions") // Relation to the User (Sensei)
+  courseId    Int           // Course ID that the session is related to
+  course      Course        @relation(fields: [courseId], references: [id]) // Relation to the Course
+  status      SessionStatus @default(PENDING) // Session status: PENDING, ACTIVE, COMPLETED, CANCELLED
+  attendees   User[]        @relation("SessionAttendees") // Many-to-many relation with users attending the session
+  startTime   DateTime      // Date and time when the session starts
+  endTime     DateTime      // Date and time when the session ends
+  
+  createdAt   DateTime      @default(now()) // Automatically set when the session is created
+  updatedAt   DateTime      @updatedAt // Automatically updates whenever the session is modified
+}
+
+// Points history to track rewards earned by users for participating in study sessions
+model PointHistory {
+  id          Int       @id @default(autoincrement()) // Automatically increments for new points record
+  userId      Int       // User ID who earned the points
+  user        User      @relation(fields: [userId], references: [id]) // Relation to the User
+  points      Int       // Number of points earned
+  description String?   // Description of how the points were earned
+  createdAt   DateTime  @default(now()) // Automatically set when the points are earned
 }

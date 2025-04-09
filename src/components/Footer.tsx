@@ -1,18 +1,43 @@
-import { Col, Container } from 'react-bootstrap';
+'use client';
 
-/** The Footer appears at the bottom of every page. Rendered by the App Layout component. */
+import { Container, Row, Col, ListGroup } from 'react-bootstrap';
+import Link from 'next/link';
+
 const Footer = () => (
-  <footer className="mt-auto py-3 bg-light">
+  <footer className="bg-dark text-light py-4">
     <Container>
-      <Col className="text-center">
-        Department of Information and Computer Sciences
-        <br />
-        University of Hawaii
-        <br />
-        Honolulu, HI 96822
-        <br />
-        <a href="http://ics-software-engineering.github.io/nextjs-application-template">Template Home Page</a>
-      </Col>
+      <Row className="justify-content-center">
+        <Col xs={12} md={6} className="text-center">
+          <h5>Studymate</h5>
+          <p>
+            Studymate helps ICS students at UH Manoa connect face-to-face for real-time study sessions in ICSpace.
+          </p>
+        </Col>
+        <Col xs={12} md={6} className="text-center">
+          <h6>Quick Links</h6>
+          <ListGroup className="list-group-flush">
+            <ListGroup.Item className="border-0 bg-dark">
+              <Link href="/profile" className="text-light text-decoration-none">Profile</Link>
+            </ListGroup.Item>
+            <ListGroup.Item className="border-0 bg-dark">
+              <Link href="/calendar" className="text-light text-decoration-none">Calendar</Link>
+            </ListGroup.Item>
+            <ListGroup.Item className="border-0 bg-dark">
+              <Link href="/leaderboard" className="text-light text-decoration-none">Leaderboard</Link>
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+      </Row>
+      <Row className="mt-4 text-center">
+        <Col>
+          <small>
+            &copy;
+            {new Date().getFullYear()}
+            {' '}
+            Studymate | All Rights Reserved
+          </small>
+        </Col>
+      </Row>
     </Container>
   </footer>
 );

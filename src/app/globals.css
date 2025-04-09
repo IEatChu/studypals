@@ -5,10 +5,24 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  background-color: rgb(8, 8, 8);
 }
 .wrapper {
   box-sizing: border-box;
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: rgb(8, 8, 8);
+}
+
+/* Add this to your global CSS file or component-specific CSS module */
+.login-signup-btn {
+  background-color: #007bff !important; /* Blue background */
+  color: white; /* White text */
+  border-radius: 25px; /* Oval shape */
+  padding: 20px 20px; /* Adjust padding for button size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
