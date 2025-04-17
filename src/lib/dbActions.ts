@@ -22,10 +22,3 @@ export async function changePassword(input: ChangePasswordInput) {
   });
   redirect('/profile');
 }
-
-
-
-
-
-
-

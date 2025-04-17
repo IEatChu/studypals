@@ -22,7 +22,10 @@ export default async function EditStuffPage({ params }: { params: { id: string |
   return (
     <main>
       <h1>Edit Item</h1>
-      <p>Editing item with ID: {id}</p>
+      <p>
+        Editing item with ID:
+        {id}
+      </p>
     </main>
   );
 }

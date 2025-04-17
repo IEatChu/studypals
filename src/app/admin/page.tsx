@@ -17,7 +17,6 @@ const AdminPage = async () => {
   return (
     <main>
       <Container id="list" fluid className="py-3">
-    
         <Row>
           <Col>
             <h1>List Users Admin</h1>

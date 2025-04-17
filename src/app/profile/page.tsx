@@ -20,7 +20,7 @@ export default function ProfilePage() {
         </Form.Group>
 
         <Form.Group className="mb-3">
-          <Form.Label>Courses you're taking (Grasshopper)</Form.Label>
+          <Form.Label>Courses you&apos;re taking (Grasshopper)</Form.Label>
           <Form.Control type="text" placeholder="e.g. ICS 314, ICS 321" />
         </Form.Group>
 
