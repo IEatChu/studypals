@@ -1,4 +1,3 @@
-// src/app/api/auth/[...nextauth]/route.ts
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '@/lib/prisma'; // Ensure this path is correct
@@ -32,33 +31,17 @@ const handler = NextAuth({
           throw new Error('Invalid password');
         }
 
-        // Return user info
-        return { id: user.id, email: user.email };
+        // Return user info with id as string
+        return { id: String(user.id), email: user.email };
       },
     }),
   ],
   pages: {
     signIn: '/auth/signin', // Custom login page
-    error: '/auth/error',   // Error page if login fails
+    error: '/auth/error', // Error page if login fails
   },
   session: {
     strategy: 'jwt', // Use JWT-based session strategy
-  },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-        token.email = user.email;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user && token) {
-        session.user.id = token.id;
-        session.user.email = token.email;
-      }
-      return session;
-    },
   },
   secret: process.env.NEXTAUTH_SECRET, // Set in your .env.local
 });
