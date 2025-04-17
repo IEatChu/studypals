@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 import styles from '../../page1.module.css';
 
 export default function Signup() {
@@ -32,8 +33,19 @@ export default function Signup() {
       if (!res.ok) {
         setError(data.message || 'Something went wrong');
       } else {
-        // Redirect to login page after successful signup
-        window.location.href = '/auth/signin';
+        // Auto-login the user after successful signup
+        const signInRes = await signIn('credentials', {
+          redirect: false,
+          email,
+          password,
+        });
+
+        if (signInRes?.error) {
+          setError('Error logging in. Please try again.');
+        } else {
+          // Redirect the user to the home page (or logged-in home page)
+          window.location.href = '/';
+        }
       }
     } catch (err) {
       setError('Something went wrong. Please try again later.');
