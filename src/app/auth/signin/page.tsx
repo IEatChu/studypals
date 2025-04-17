@@ -34,7 +34,7 @@ export default function SignIn() {
         setError(res.error || 'Login failed, please try again.');
       } else {
         // Redirect on successful login
-        window.location.href = '/'; // Replace with your desired route
+        window.location.href = '/';
       }
     } catch (err) {
       setError('An error occurred. Please try again.');

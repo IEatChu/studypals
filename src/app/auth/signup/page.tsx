@@ -33,7 +33,7 @@ export default function Signup() {
         setError(data.message || 'Something went wrong');
       } else {
         // Redirect to login page after successful signup
-        window.location.href = '/home';
+        window.location.href = '/auth/signin';
       }
     } catch (err) {
       setError('Something went wrong. Please try again later.');
