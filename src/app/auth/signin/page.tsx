@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-// src/app/auth/signin/page.tsx
 
 'use client';
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react'; // Import signIn from NextAuth
+import { useRouter } from 'next/navigation'; // Import useRouter for navigation
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from '../../page1.module.css';
@@ -13,6 +13,8 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
+  const router = useRouter(); // Get the Next.js router
 
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -22,10 +24,11 @@ export default function SignIn() {
       return;
     }
 
+    setIsLoading(true); // Start loading
+
     try {
-      // Use NextAuth's signIn method to handle login
       const res = await signIn('credentials', {
-        redirect: false, // Prevent auto redirect
+        redirect: false,
         email,
         password,
       });
@@ -33,11 +36,13 @@ export default function SignIn() {
       if (res?.error) {
         setError(res.error || 'Login failed, please try again.');
       } else {
-        // Redirect on successful login
-        window.location.href = '/';
+        router.refresh(); // Refresh session context
+        router.push('/'); // Redirect to homepage
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false); // End loading
     }
   };
 
@@ -99,8 +104,8 @@ export default function SignIn() {
                   {error}
                 </p>
               )}
-              <button type="submit" className="primary" style={{ width: '100%' }}>
-                Login
+              <button type="submit" className="primary" style={{ width: '100%' }} disabled={isLoading}>
+                {isLoading ? 'Logging in...' : 'Login'}
               </button>
             </form>
             <p style={{ textAlign: 'center', marginTop: '1rem' }}>

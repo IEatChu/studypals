@@ -43,7 +43,7 @@ const handler = NextAuth({
   session: {
     strategy: 'jwt', // Use JWT-based session strategy
   },
-  secret: process.env.NEXTAUTH_SECRET, // Set in your .env.local
+  secret: process.env.NEXTAUTH_SECRET,
 });
 
 export { handler as GET, handler as POST };
