@@ -4,7 +4,7 @@ import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 import Link from 'next/link';
 
 const Footer = () => (
-  <footer className="bg-dark text-light py-4">
+  <footer className="bg-dark text-light py-4 mt-auto">
     <Container>
       <Row className="justify-content-center">
         <Col xs={12} md={6} className="text-center">
@@ -32,9 +32,10 @@ const Footer = () => (
         <Col>
           <small>
             &copy;
+            {' '}
             {new Date().getFullYear()}
             {' '}
-            Studymate | All Rights Reserved
+            StudyPalz | Built by Roger Liu, Dominic Molina, Zion, and Kwanho Chun – ICS 314 Students @ UH Mānoa 🤙
           </small>
         </Col>
       </Row>
