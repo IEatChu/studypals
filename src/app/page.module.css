@@ -228,3 +228,9 @@
     transform: rotate(0deg);
   }
 }
+
+.navbar-toggler-icon {
+  background-color: blue !important; /* Force the blue background */
+  background-image: none !important; /* Remove default image */
+  border: 1px solid blue; /* Add a border if you want it to be more visible */
+}

@@ -7,6 +7,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { BoxArrowRight, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
+import styles from '../app/page.module.css';
 
 const NavBar: React.FC = () => {
   const { data: session } = useSession(); // Get session data
@@ -27,20 +28,26 @@ const NavBar: React.FC = () => {
           <img src="/studypalzlogo.png" alt="StudyPalz Logo" height="100" width="200" />
         </Navbar.Brand>
 
-        {/* Main Nav Links */}
-        <Nav.Link href="/" className="me-5" style={{ color: 'white', fontWeight: 'bold' }}>
-          Home
-        </Nav.Link>
-        <Nav.Link href="/about" className="me-5" style={{ color: 'white', fontWeight: 'bold' }}>
-          About
-        </Nav.Link>
-        <Nav.Link href="/contact" style={{ color: 'white', fontWeight: 'bold' }}>
-          Contact
-        </Nav.Link>
+        {/* Navbar Toggle (Hamburger) for mobile */}
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          className={styles['navbar-toggler-icon']} // Apply the custom class here
+        />
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        {/* Main Nav Links */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
+            {/* Nav Links for larger screens */}
+            <Nav.Link href="/" className="me-5" style={{ color: 'white', fontWeight: 'bold' }}>
+              Home
+            </Nav.Link>
+            <Nav.Link href="/about" className="me-5" style={{ color: 'white', fontWeight: 'bold' }}>
+              About
+            </Nav.Link>
+            <Nav.Link href="/contact" style={{ color: 'white', fontWeight: 'bold' }}>
+              Contact
+            </Nav.Link>
+
             {/* Show if logged in */}
             {currentUser && (
               <>
