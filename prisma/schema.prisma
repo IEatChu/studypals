@@ -32,6 +32,8 @@ model User {
   pointHistory      PointHistory[]
   sessionsHosted    StudySession[] @relation("OwnerSessions")
   sessionsAttending StudySession[] @relation("AttendeeSessions")
+
+  userProfile       UserProfile?   @relation("UserProfileRelation")
 }
 
 // Model for courses available in the system
@@ -72,4 +74,17 @@ model PointHistory {
   points      Int // Number of points earned
   description String? // Description of how the points were earned
   createdAt   DateTime @default(now()) // Automatically set when the points are earned
+}
+
+model UserProfile {
+  id            Int      @id @default(autoincrement())
+  userId        Int      @unique
+  fullName      String
+  headshotUrl   String?
+  coursesTaken  String?
+  coursesHelped String?
+  updatedAt     DateTime @updatedAt
+  createdAt     DateTime @default(now())
+
+  user          User     @relation("UserProfileRelation", fields: [userId], references: [id])
 }

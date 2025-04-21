@@ -1,31 +1,65 @@
-// app/calendar/page.tsx
-import { Container, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
+/* eslint-disable react/jsx-indent */
+/* eslint-disable react/self-closing-comp */
+// eslint-disable-next-line no-multiple-empty-lines
 
-const Calendar = () => {
-  // Example study sessions
-  const studySessions = [
-    { id: 1, topic: 'Write Essay on Configuration Management', time: '8:30 PM - 9:30 PM' },
-    { id: 2, topic: 'Algorithm Help', time: '10:00 AM - 11:00 AM' },
-    { id: 3, topic: 'Data Structures Review', time: '2:00 PM - 3:00 PM' },
-  ];
+'use client';
+
+import { Nav } from 'react-bootstrap';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+/** The Home page. */
+interface Event {
+  title: string;
+  start: Date | string;
+  allDay: boolean;
+  id: number;
+}
+const Home = () => {
+  const events: Event[] = []; // Define your events array here
 
   return (
-    <Container className="py-5" style={{ color: 'white' }}>
-      <h1>Calendar</h1>
-      <ListGroup>
-        {studySessions.map((session) => (
-          <ListGroupItem key={session.id} className="d-flex justify-content-between align-items-center">
-            <div>
-              <strong>{session.topic}</strong>
-              <br />
-              <small>{session.time}</small>
+  <>
+    <Nav className="flex justify-between bg-light mb-12 border-b border-violet-100 p-4">
+      <h1 className="font-bold-2x1 text-light-700">Calendar</h1>
+    </Nav>
+    <main>
+      <div className="grid grid-cols-10 bg-light">
+        <div className="col-span-8">
+          <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            initialView="dayGridMonth"
+            headerToolbar={{
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay',
+            }}
+            events={[]}
+            editable
+            selectable
+            droppable
+            selectMirror
+            dayMaxEvents
+            weekends
+            initialDate={new Date()}
+            // drop={}
+           // eventclick={[]}
+          />
+        {Array.isArray(events) && events.map((event) => (
+          <div id="draggable-element" className="bg-blue-500 text-white p-2 rounded shadow-md" key={event.id}>
+            <h1>Draggable Event</h1>
+            <div
+              className="fc-event border-2 p-1 m-2 w-full rounded-md m1-auto text-center bg-white"
+            >
+              {event.title}
             </div>
-            <Button variant="primary">Join Session</Button>
-          </ListGroupItem>
+          </div>
         ))}
-      </ListGroup>
-    </Container>
+        </div>
+      </div>
+    </main>
+  </>
   );
 };
-
-export default Calendar;
+export default Home;

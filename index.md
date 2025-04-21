@@ -4,16 +4,31 @@
 
 ---
 
+## Important Links
+
+[Vercel Deployment](https://study-palz.vercel.app/)
+
+[Mockup Pages](mockup.md)
+
+[M1 Project Board](https://github.com/orgs/study-palz/projects/3)
+
+[M2 Project Board](https://github.com/orgs/study-palz/projects/7)
+
+[Team Contract Copy](team-contract.md)
+
+---
+
 ## 💡 Overview
 
-UH students often struggle to complete homework efficiently or understand material deeply—mainly because they study alone. Study Palz helps fix that by making it easy for students to self-organize real-time, face-to-face study groups in campus 
+UH students often struggle to complete homework efficiently or understand material deeply—mainly because they study alone. Study Palz helps fix that by making it easy for students to self-organize real-time, face-to-face study groups on campus.
 
 ---
 
 ## 🎯 Goals
 
 - Encourage students to study together in person.
-- Leaderboard to challange students and encourage them to studying more.
+- Leaderboard to challenge students and encourage them to study more.
+
 ---
 
 ## 🔧 How It Works
@@ -34,27 +49,27 @@ UH students often struggle to complete homework efficiently or understand materi
 4. **Join Sessions & Help Others**  
    - Use the calendar to view all active and upcoming sessions.
 
-
 ---
 
 ## 🏆 Game Mechanics
 
 - Earn points and levels by participating in sessions.
-- Top Senseis and Grasshoppers may earn real-world rewards (e.g. gift cards).
+- Top Senseis and Grasshoppers may earn real-world rewards (e.g., gift cards).
 - Designed to prevent abuse and promote real participation.
 
 ---
 
 ## 🛡️ Safety & Admin Support
 
-- All meetings happen in UH Campus for student safety.
+- All meetings happen on the UH Campus for student safety.
 - Admins can monitor activity and step in if issues arise.
 
 ---
 
-## 📸 Mockups
+## 📸 Mockups for M1
 
-Here’s a preview of our planned pages (add screenshots here):
+
+[our mock up pages for M1](mockup.md)
 
 
 - User Home Page
@@ -67,10 +82,14 @@ Here’s a preview of our planned pages (add screenshots here):
 
 ---
 
-## 🚀 What's Next?
+## 🚀 What's next for M2
 
-We're currently building the MVP and refining our game system. Stay tuned for updates!
+We're currently working making the existing pages uniform and complementing our theme. 
+We are also working on the connecting our pages to vercel. 
+
+[M2 Project Board](https://github.com/orgs/study-palz/projects/7)
+
 
 ---
 
-*Built with ❤️ by UH Mānoa ICS students.*
+
