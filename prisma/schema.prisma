@@ -79,7 +79,8 @@ model PointHistory {
 model UserProfile {
   id            Int      @id @default(autoincrement())
   userId        Int      @unique
-  fullName      String
+  firstName     String?  // Make nullable initially
+  lastName      String?  // Make nullable initially
   headshotUrl   String?
   coursesTaken  String?
   coursesHelped String?
@@ -88,3 +89,4 @@ model UserProfile {
 
   user          User     @relation("UserProfileRelation", fields: [userId], references: [id])
 }
+
