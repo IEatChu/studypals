@@ -7,6 +7,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { BoxArrowRight, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
+import React, { useState, useEffect } from 'react';
 import styles from '../app/page.module.css';
 
 const NavBar: React.FC = () => {
@@ -15,6 +16,22 @@ const NavBar: React.FC = () => {
   const userWithRole = session?.user as { email: string; randomKey: string; image?: string };
   const role = userWithRole?.randomKey;
   const pathName = usePathname();
+
+  // State to store the user's headshot URL
+  const [headshotUrl, setHeadshotUrl] = useState<string | null>(null);
+
+  // Fetch the user's headshot URL from the API if logged in
+  useEffect(() => {
+    const fetchHeadshot = async () => {
+      if (currentUser) {
+        const res = await fetch(`/api/profile?email=${currentUser}`);
+        const data = await res.json();
+        setHeadshotUrl(data.headshotUrl || null); // Set the headshot URL or null if not available
+      }
+    };
+
+    fetchHeadshot();
+  }, [currentUser]);
 
   const handleSignOut = () => {
     signOut({ callbackUrl: '/' }); // Redirect to homepage after logout
@@ -73,9 +90,9 @@ const NavBar: React.FC = () => {
               <>
                 {/* Profile Image as Icon */}
                 <Nav.Link href="/profile" className="me-3">
-                  {session.user?.image ? (
+                  {headshotUrl ? (
                     <img
-                      src={session.user.image}
+                      src={headshotUrl}
                       alt="Profile"
                       width={36}
                       height={36}
