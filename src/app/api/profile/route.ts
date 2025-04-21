@@ -17,7 +17,8 @@ export async function GET(req: Request) {
   if (!user || !user.userProfile) return NextResponse.json(null);
 
   return NextResponse.json({
-    fullName: user.userProfile.fullName,
+    firstName: user.userProfile.firstName,
+    lastName: user.userProfile.lastName,
     headshotUrl: user.userProfile.headshotUrl,
     coursesTaken: user.userProfile.coursesTaken,
     coursesHelped: user.userProfile.coursesHelped,
@@ -26,7 +27,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const body = await req.json();
-  const { email, fullName, headshotUrl, coursesTaken, coursesHelped } = body;
+  const { email, firstName, lastName, headshotUrl, coursesTaken, coursesHelped } = body;
 
   if (!email) return NextResponse.json({ error: 'Missing email' }, { status: 400 });
 
@@ -36,14 +37,16 @@ export async function POST(req: Request) {
   const profile = await prisma.userProfile.upsert({
     where: { userId: user.id },
     update: {
-      fullName,
+      firstName,
+      lastName,
       headshotUrl,
       coursesTaken,
       coursesHelped,
     },
     create: {
       userId: user.id,
-      fullName,
+      firstName,
+      lastName,
       headshotUrl,
       coursesTaken,
       coursesHelped,

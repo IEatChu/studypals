@@ -8,7 +8,8 @@ import { useSession } from 'next-auth/react';
 
 export default function ProfilePage() {
   const { data: session } = useSession();
-  const [fullName, setFullName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [headshotUrl, setHeadshotUrl] = useState('');
   const [coursesTaken, setCoursesTaken] = useState('');
   const [coursesHelped, setCoursesHelped] = useState('');
@@ -20,7 +21,8 @@ export default function ProfilePage() {
         .then(res => res.json())
         .then(data => {
           if (data) {
-            setFullName(data.fullName || '');
+            setFirstName(data.firstName || '');
+            setLastName(data.lastName || '');
             setHeadshotUrl(data.headshotUrl || '');
             setCoursesTaken(data.coursesTaken || '');
             setCoursesHelped(data.coursesHelped || '');
@@ -37,7 +39,8 @@ export default function ProfilePage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email: session?.user?.email,
-        fullName,
+        firstName,
+        lastName,
         headshotUrl,
         coursesTaken,
         coursesHelped,
@@ -67,12 +70,22 @@ export default function ProfilePage() {
 
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          <Form.Label>Full Name</Form.Label>
+          <Form.Label>First Name</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter your name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            placeholder="Enter your first name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3">
+          <Form.Label>Last Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter your last name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
           />
         </Form.Group>
 
